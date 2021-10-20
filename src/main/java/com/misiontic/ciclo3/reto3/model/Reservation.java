@@ -1,5 +1,7 @@
 package com.misiontic.ciclo3.reto3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -11,10 +13,22 @@ public class Reservation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer client;
-    private Integer cabin;
     private Date startDate;
     private Date devolutionDate;
+
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties({"reservations", "messages"})
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "cabinId")
+    @JsonIgnoreProperties("reservations")
+    private Cabin cabin;
+
+    @OneToOne(cascade = {CascadeType.REMOVE},mappedBy="reservation")
+    @JsonIgnoreProperties("reservation")
+    private Score score;
 
     public Integer getId() {
         return id;
@@ -22,22 +36,6 @@ public class Reservation implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getClient() {
-        return client;
-    }
-
-    public void setClient(Integer client) {
-        this.client = client;
-    }
-
-    public Integer getCabin() {
-        return cabin;
-    }
-
-    public void setCabin(Integer cabin) {
-        this.cabin = cabin;
     }
 
     public Date getStartDate() {
@@ -54,5 +52,29 @@ public class Reservation implements Serializable {
 
     public void setDevolutionDate(Date devolutionDate) {
         this.devolutionDate = devolutionDate;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Cabin getCabin() {
+        return cabin;
+    }
+
+    public void setCabin(Cabin cabin) {
+        this.cabin = cabin;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
     }
 }

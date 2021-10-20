@@ -1,7 +1,10 @@
 package com.misiontic.ciclo3.reto3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name="category")
@@ -12,6 +15,10 @@ public class Category implements Serializable{
     private Integer id;
     private String name;
     private String description;
+
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "category")
+    @JsonIgnoreProperties("category")
+    private List<Cabin> cabins;
 
     public Integer getId() {
         return id;
@@ -35,5 +42,13 @@ public class Category implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Cabin> getCabins() {
+        return cabins;
+    }
+
+    public void setCabins(List<Cabin> cabins) {
+        this.cabins = cabins;
     }
 }
