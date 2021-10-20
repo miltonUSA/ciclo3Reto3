@@ -12,30 +12,30 @@ public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer idReservation;
     private Date startDate;
     private Date devolutionDate;
-
-    @ManyToOne
-    @JoinColumn(name="clientId")
-    @JsonIgnoreProperties({"reservations", "messages"})
-    private Client client;
 
     @ManyToOne
     @JoinColumn(name = "cabinId")
     @JsonIgnoreProperties("reservations")
     private Cabin cabin;
 
+    @ManyToOne
+    @JoinColumn(name="clientId")
+    @JsonIgnoreProperties({"reservations", "messages"})
+    private Client client;
+
     @OneToOne(cascade = {CascadeType.REMOVE},mappedBy="reservation")
     @JsonIgnoreProperties("reservation")
     private Score score;
 
-    public Integer getId() {
-        return id;
+    public Integer getIdReservation() {
+        return idReservation;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setIdReservation(Integer id) {
+        this.idReservation = id;
     }
 
     public Date getStartDate() {
