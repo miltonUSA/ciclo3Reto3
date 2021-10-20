@@ -15,6 +15,7 @@ public class Reservation implements Serializable {
     private Integer idReservation;
     private Date startDate;
     private Date devolutionDate;
+    private String status = "created";
 
     @ManyToOne
     @JoinColumn(name = "cabinId")
@@ -34,8 +35,8 @@ public class Reservation implements Serializable {
         return idReservation;
     }
 
-    public void setIdReservation(Integer id) {
-        this.idReservation = id;
+    public void setIdReservation(Integer idReservation) {
+        this.idReservation = idReservation;
     }
 
     public Date getStartDate() {
@@ -54,12 +55,12 @@ public class Reservation implements Serializable {
         this.devolutionDate = devolutionDate;
     }
 
-    public Client getClient() {
-        return client;
+    public String getStatus() {
+        return status;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Cabin getCabin() {
@@ -68,6 +69,14 @@ public class Reservation implements Serializable {
 
     public void setCabin(Cabin cabin) {
         this.cabin = cabin;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Score getScore() {
